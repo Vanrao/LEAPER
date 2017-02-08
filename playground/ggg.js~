@@ -1,0 +1,2 @@
+var sourceFile = require('./playground');
+console.log(sourceFile.variableName);
