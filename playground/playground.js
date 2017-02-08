@@ -75,13 +75,14 @@ window.onload = function() {
     // Playground data tabs.
     // Block representation tab.
     
-    //trying to call this function
+    //trying to call this function by test.js
   	function writeFile(){ 
     var blockexplorer = document.getElementById('blockexplorer');
     var updateBlockExplorer = function(blocks) {
         blockexplorer.innerHTML = JSON.stringify(blocks, null, 2);	
-	
+	//trying to print on the console...but file gets very big!
 	//console.log(blockexplorer.innerHTML);
+	//This doesnt work! 
 	//fs.writeFile('/home/vanrao/test.txt',JSON.stringify(blocks, null, 2));      	
 	window.hljs.highlightBlock(blockexplorer);
         
