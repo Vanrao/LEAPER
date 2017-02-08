@@ -5,3 +5,13 @@ test.js-File write
 
 
 playground.js-modified
+
+#How to run
+Install Node.js
+
+Cd into the project directory.
+
+npm start
+
+Server up running on localhost/8073 
+
