@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <title>Scratch VM Playground</title>
-	
-   <link rel="stylesheet" href="playground.css">
+    <link rel="stylesheet" href="playground.css">
     <link rel="stylesheet" href="zenburn.css">
 </head>
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div id="vm-devtools">
         <h2>Scratch VM Playground</h2>
         <select id="selectedTarget" multiple></select>
@@ -43,10 +43,6 @@
             Thread explorer
             <pre id="threadexplorer"></pre>
         </div>
-	<div id="writing">
-            See the File
-            <pre id="writing"></pre>
-        </div>
         <div id="tab-blockexplorer">
             Block explorer
             <pre id="blockexplorer"></pre>
@@ -67,13 +63,14 @@
     </div>
 
     <div id="blocks"></div>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">-->
 
     <!-- FPS counter, Syntax highlighter, Blocks, Renderer -->
     <script src="./vendor.js"></script>
     <!-- VM Worker -->
     <script src="./scratch-vm.js"></script>
     <!-- Playground -->
-    <script  src="./playground.js"></script>
+    <script src="./playground.js"></script>
     <script>
         function toXml() {
             var output = document.getElementById('importExport');
@@ -88,6 +85,9 @@
             var xml = Blockly.Xml.textToDom(input.value);
             Blockly.Xml.domToWorkspace(workspace, xml);
           }
+
+         
+          
     </script>
 </body>
 </html>

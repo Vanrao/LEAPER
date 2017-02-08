@@ -1,3 +1,4 @@
+
 var loadProject = function () {
     var id = location.hash.substring(1);
     if (id.length < 1 || !isFinite(id)) {
@@ -18,7 +19,7 @@ var loadProject = function () {
 };
 
 window.onload = function() {
-        // Lots of global variables to make debugging easier
+    // Lots of global variables to make debugging easier
     // Instantiate the VM.
     var vm = new window.VirtualMachine();
     window.vm = vm;
@@ -69,31 +70,29 @@ window.onload = function() {
     document.getElementById('tab-renderexplorer').appendChild(stats.dom);
     stats.dom.style.position = 'relative';
     stats.begin();
-	
-    
-    
+
     // Playground data tabs.
     // Block representation tab.
-    
-    //trying to call this function
-  	function writeFile(){ 
     var blockexplorer = document.getElementById('blockexplorer');
     var updateBlockExplorer = function(blocks) {
-        blockexplorer.innerHTML = JSON.stringify(blocks, null, 2);	
-	
-	//console.log(blockexplorer.innerHTML);
-	//fs.writeFile('/home/vanrao/test.txt',JSON.stringify(blocks, null, 2));      	
-	window.hljs.highlightBlock(blockexplorer);
-        
-    };
-    return JSON.stringify(blocks, null, 2);	
-    };
-    var writeFile = document.getElementById('writing');
-    var updateFile=function(){
-    var blockData=localStorage.getItem('_DATA');
-    data:text/plain,blockdata;
+        blockexplorer.innerHTML = JSON.stringify(blocks, null, 2);
+        blocksExp(blocks);
+        window.hljs.highlightBlock(blockexplorer);
     };
 
+    var blocksExp=function(blocks){ $.ajax({
+            dataType: 'json',
+            type: 'GET',
+            url: 'http://localhost:8080/',
+            data: {jsonData:JSON.stringify(blocks) },
+            contentType: 'application/json', 
+            
+            
+    
+        });
+    }
+
+    
     // Thread representation tab.
     var threadexplorer = document.getElementById('threadexplorer');
     var cachedThreadJSON = '';
@@ -119,7 +118,7 @@ window.onload = function() {
     vm.on('playgroundData', function(data) {
         updateThreadExplorer(data.threads);
         updateBlockExplorer(data.blocks);
-	updateFile(data.blocks);
+       
     });
 
     // Receipt of new block XML for the selected target.
