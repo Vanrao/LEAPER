@@ -25,16 +25,9 @@ http.createServer(function (req, res) {
 
     var url_parts = url.parse(req.url, true);
     var query = url_parts.query;
-    //req.on('end', function() {
-      //  console.log(query); 
-      //}); 
-    //var str=JSON.stringify(req.body);
-    //res.end('msg:ok'); // removed the 'callback' stuff
-    //app.post('/', function(req, res) {
-      //console.log(req.data);
-      fs.writeFile('./input.txt',JSON.stringify(query),function(err) {
+  fs.appendFile('./input.txt',"\n"+JSON.stringify(query),function(err) {
    if (err) {
       return console.error(err);}});
 
 }).listen(8080, 'localhost');
-console.log('Server running at http://localhost:8080/');
+console.log('Server running at http://localhost');
