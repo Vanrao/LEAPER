@@ -32,7 +32,7 @@ http.createServer(function (req, res) {
     //res.end('msg:ok'); // removed the 'callback' stuff
     //app.post('/', function(req, res) {
       //console.log(req.data);
-      fs.writeFile('./input.txt',JSON.stringify(query),function(err) {
+      fs.appendFile('./input.txt',"\n"+JSON.stringify(query),function(err) {
    if (err) {
       return console.error(err);}});
 

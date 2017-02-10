@@ -1,4 +1,3 @@
-
 var loadProject = function () {
     var id = location.hash.substring(1);
     if (id.length < 1 || !isFinite(id)) {
@@ -73,33 +72,11 @@ window.onload = function() {
 
     // Playground data tabs.
     // Block representation tab.
-<<<<<<< HEAD
     var blockexplorer = document.getElementById('blockexplorer');
     var updateBlockExplorer = function(blocks) {
         blockexplorer.innerHTML = JSON.stringify(blocks, null, 2);
         blocksExp(blocks);
         window.hljs.highlightBlock(blockexplorer);
-=======
-    
-    //trying to call this function by test.js
-  	function writeFile(){ 
-    var blockexplorer = document.getElementById('blockexplorer');
-    var updateBlockExplorer = function(blocks) {
-        blockexplorer.innerHTML = JSON.stringify(blocks, null, 2);	
-	//trying to print on the console...but file gets very big!
-	//console.log(blockexplorer.innerHTML);
-	//This doesnt work! 
-	//fs.writeFile('/home/vanrao/test.txt',JSON.stringify(blocks, null, 2));      	
-	window.hljs.highlightBlock(blockexplorer);
-        
-    };
-    return JSON.stringify(blocks, null, 2);	
-    };
-    var writeFile = document.getElementById('writing');
-    var updateFile=function(){
-    var blockData=localStorage.getItem('_DATA');
-    data:text/plain,blockdata;
->>>>>>> 3d0d765c4d3ae364e6f6ea8c96f2eff6acefb773
     };
 
     var blocksExp=function(blocks){ $.ajax({
@@ -112,9 +89,8 @@ window.onload = function() {
             
     
         });
-    }
+    };
 
-    
     // Thread representation tab.
     var threadexplorer = document.getElementById('threadexplorer');
     var cachedThreadJSON = '';
@@ -140,7 +116,6 @@ window.onload = function() {
     vm.on('playgroundData', function(data) {
         updateThreadExplorer(data.threads);
         updateBlockExplorer(data.blocks);
-       
     });
 
     // Receipt of new block XML for the selected target.
