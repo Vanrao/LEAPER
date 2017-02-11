@@ -24,30 +24,15 @@ var server=http.createServer(function (req, res) {
     
 var url_parts = url.parse(req.url, true);
     var query = url_parts.query;
-<<<<<<< HEAD
-    //req.on('end', function() {
-      //  console.log(query);                         
-      //}); 
-    //var str=JSON.stringify(req.body);
-    //res.end('msg:ok'); // removed the 'callback' stuff
-    //app.post('/', function(req, res) {
-      //console.log(req.data);
+
       fs.appendFile('./input.txt',"\n"+JSON.stringify(query),function(err) {
-=======
-  fs.appendFile('./input.txt',"\n"+JSON.stringify(query),function(err) {
->>>>>>> 4b5baa2b0674363a2fa525635debcbc2f96a9d39
    if (err) {
-      return console.error(err);}});
+      return console.error(err);
+   }
+      });
       //req.connection.destroy();
     //server.close();
-
-
-
-<<<<<<< HEAD
 });
-server.listen(8080,'localhost');
-console.log('Server running at http://localhost');
-=======
 }).listen(8080, 'localhost');
 console.log('Server running at http://localhost');
->>>>>>> 4b5baa2b0674363a2fa525635debcbc2f96a9d39
+
