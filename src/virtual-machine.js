@@ -8,8 +8,10 @@ var sb2import = require('./import/sb2import');
  * Handles connections between blocks, stage, and extensions.
  * @constructor
  */
+
 var VirtualMachine = function () {
     var instance = this;
+    
     // Bind event emitter and runtime to VM instance
     EventEmitter.call(instance);
     /**
@@ -110,6 +112,7 @@ VirtualMachine.prototype.clear = function () {
  * Get data for playground. Data comes back in an emitted event.
  */
 VirtualMachine.prototype.getPlaygroundData = function () {
+    //alert("inplayground data");
     var instance = this;
     // Only send back thread data for the current editingTarget.
     var threadData = this.runtime.threads.filter(function (thread) {
@@ -120,11 +123,16 @@ VirtualMachine.prototype.getPlaygroundData = function () {
         if (key === 'target') return;
         return value;
     }, 2);
+    //alert(this.editingTarget.blocks);
+  
     this.emit('playgroundData', {
         blocks: this.editingTarget.blocks,
         threads: filteredThreadData
     });
+    
 };
+ 
+
 
 /**
  * Post I/O data to the virtual devices.
@@ -147,6 +155,7 @@ VirtualMachine.prototype.loadProject = function (json) {
     sb2import(json, this.runtime);
     // Select the first target for editing, e.g., the first sprite.
     this.editingTarget = this.runtime.targets[1];
+    flag=true;
     // Update the VM user's knowledge of targets and blocks on the workspace.
     this.emitTargetsUpdate();
     this.emitWorkspaceUpdate();
@@ -265,7 +274,11 @@ VirtualMachine.prototype.attachAudioEngine = function (audioEngine) {
 VirtualMachine.prototype.blockListener = function (e) {
     if (this.editingTarget) {
         this.editingTarget.blocks.blocklyListen(e, this.runtime);
+        //alert("Hi block inside");
+        //blocksExp(this.editingTarget.blocks);
+
     }
+
 };
 
 /**
@@ -274,6 +287,7 @@ VirtualMachine.prototype.blockListener = function (e) {
  */
 VirtualMachine.prototype.flyoutBlockListener = function (e) {
     this.runtime.flyoutBlocks.blocklyListen(e, this.runtime);
+    //alert("flyout");
 };
 
 /**
@@ -305,6 +319,7 @@ VirtualMachine.prototype.setEditingTarget = function (targetId) {
  * the currently editing one.
  */
 VirtualMachine.prototype.emitTargetsUpdate = function () {
+    
     this.emit('targetsUpdate', {
         // [[target id, human readable target name], ...].
         targetList: this.runtime.targets.filter(function (target) {
@@ -323,6 +338,7 @@ VirtualMachine.prototype.emitTargetsUpdate = function () {
  * of the current editing target's blocks.
  */
 VirtualMachine.prototype.emitWorkspaceUpdate = function () {
+    //alert("inside emit");
     this.emit('workspaceUpdate', {
         xml: this.editingTarget.blocks.toXML()
     });
@@ -333,6 +349,7 @@ VirtualMachine.prototype.emitWorkspaceUpdate = function () {
  * @param {object} data An object with sprite info data to set.
  */
 VirtualMachine.prototype.postSpriteInfo = function (data) {
+
     this.editingTarget.postSpriteInfo(data);
 };
 
