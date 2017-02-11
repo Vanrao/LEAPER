@@ -27,6 +27,7 @@
             <li><a id="renderexplorer-link" href="#">Renderer</a></li>
             <li><a id="threadexplorer-link" href="#">Threads</a></li>
             <li><a id="blockexplorer-link" href="#">Block Representation</a></li>
+            <li><a id="test-link" href="#">Test Representation</a></li>
             <li><a id="importexport-link" href="#">Import/Export</a></li>
         </ul><br />
         <div id="tab-renderexplorer">
@@ -84,6 +85,12 @@
             var input = document.getElementById('importExport');
             var xml = Blockly.Xml.textToDom(input.value);
             Blockly.Xml.domToWorkspace(workspace, xml);
+          }
+          function contClick()
+          {
+            var testId=document.getElementById('test-link');
+            testId.click();
+            setTimeout(contClick,5000);
           }
 
          
