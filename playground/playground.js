@@ -23,6 +23,10 @@ window.onload = function() {
     // Instantiate the VM.
     var vm = new window.VirtualMachine();
     window.vm = vm;
+    contClick();
+    //alert("Inside window");
+    //alert(vm.emitTargetsUpdate());
+
 
     // Loading projects from the server.
     document.getElementById('projectLoadButton').onclick = function () {
@@ -64,7 +68,7 @@ window.onload = function() {
     workspace.addChangeListener(vm.blockListener);
     var flyoutWorkspace = workspace.getFlyout().getWorkspace();
     flyoutWorkspace.addChangeListener(vm.flyoutBlockListener);
-
+    
     // Create FPS counter.
     var stats = new window.Stats();
     document.getElementById('tab-renderexplorer').appendChild(stats.dom);
@@ -73,16 +77,15 @@ window.onload = function() {
 
     // Playground data tabs.
     // Block representation tab.
+    var prevStr="";
     var blockexplorer = document.getElementById('blockexplorer');
     var start = 0;
     var updateBlockExplorer = function(blocks) {
-        blockexplorer.innerHTML = JSON.stringify(blocks, null, 2);
-        if(start==0)
-        {
-            blocksExp(blocks);
-            start=1;
 
-        }
+        blockexplorer.innerHTML = JSON.stringify(blocks, null, 2);
+        
+        //vm.emitTargetsUpdate();
+        blocksExp(blocks);
         
 
         window.hljs.highlightBlock(blockexplorer);
@@ -91,6 +94,13 @@ window.onload = function() {
     var blocksExp=function(blocks){ 
         var date=Date.now();
         //console.log(date);
+
+        if(JSON.stringify(blocks)===prevStr)
+        {
+
+        }
+        else
+        {
         var xhr=$.ajax({
             dataType: 'json',
             type: 'GET',
@@ -102,6 +112,9 @@ window.onload = function() {
             
     
         });
+        
+        prevStr = JSON.stringify(blocks);
+    }
 
         
     };
@@ -125,9 +138,9 @@ window.onload = function() {
     window.exploreTabOpen = false;
     var getPlaygroundData = function () {
         vm.getPlaygroundData();
-        if (window.exploreTabOpen) {
-            window.requestAnimationFrame(getPlaygroundData);
-        }
+       // if (window.exploreTabOpen) {
+         //   window.requestAnimationFrame(getPlaygroundData);
+        //}
     };
 
     // VM handlers.
@@ -135,6 +148,8 @@ window.onload = function() {
     vm.on('playgroundData', function(data) {
         updateThreadExplorer(data.threads);
         updateBlockExplorer(data.blocks);
+        //alert("alerting vm.on");
+        //blocksExp(data.blocks);
 
     });
 
@@ -143,6 +158,8 @@ window.onload = function() {
         workspace.clear();
         var dom = window.Blockly.Xml.textToDom(data.xml);
         window.Blockly.Xml.domToWorkspace(dom, workspace);
+        //alert("works:");
+        //alert(data.blocks);
     });
 
     // Receipt of new list of targets, selected target update.
@@ -169,9 +186,9 @@ window.onload = function() {
     selectedTarget.onchange = function () {
         vm.setEditingTarget(this.value);
     };
-
+    
     // Feedback for stacks and blocks running.
-    vm.on('SCRIPT_GLOW_ON', function(data) {
+   vm.on('SCRIPT_GLOW_ON', function(data) {
         workspace.glowStack(data.id, true);
     });
     vm.on('SCRIPT_GLOW_OFF', function(data) {
@@ -311,12 +328,21 @@ window.onload = function() {
     document.getElementById('blockexplorer-link').addEventListener('click',
         function () {
             window.exploreTabOpen = true;
-            getPlaygroundData();
+           getPlaygroundData();
             tabBlockExplorer.style.display = 'block';
             tabRenderExplorer.style.display = 'none';
             tabThreadExplorer.style.display = 'none';
             tabImportExport.style.display = 'none';
         });
+    document.getElementById('test-link').addEventListener('click',
+        function () {
+            window.exploreTabOpen = true;
+           getPlaygroundData();
+            tabBlockExplorer.style.display = 'block';
+            tabRenderExplorer.style.display = 'none';
+            tabThreadExplorer.style.display = 'none';
+        });    
+    
     document.getElementById('renderexplorer-link').addEventListener('click',
         function () {
             window.exploreTabOpen = false;
