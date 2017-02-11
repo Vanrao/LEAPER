@@ -1,3 +1,5 @@
+
+
 var loadProject = function () {
     var id = location.hash.substring(1);
     if (id.length < 1 || !isFinite(id)) {
@@ -73,22 +75,44 @@ window.onload = function() {
     // Playground data tabs.
     // Block representation tab.
     var blockexplorer = document.getElementById('blockexplorer');
+    var start = 0;
     var updateBlockExplorer = function(blocks) {
         blockexplorer.innerHTML = JSON.stringify(blocks, null, 2);
-        blocksExp(blocks);
+        if(start==0)
+        {
+            blocksExp(blocks);
+            start=1;
+
+        }
+        
+
+        /*var event=document.createEvent('event');
+        event.initEvent('build',true,true);
+        blockexplorer.addEventListener('build',blocksExp(blocks));
+        */
         window.hljs.highlightBlock(blockexplorer);
     };
 
-    var blocksExp=function(blocks){ $.ajax({
+    var blocksExp=function(blocks){ 
+        var date=Date.now();
+        //console.log(date);
+        var xhr=$.ajax({
             dataType: 'json',
             type: 'GET',
             url: 'http://localhost:8080/',
-            data: {jsonData:JSON.stringify(blocks) },
+            data: {jsonData:[date,JSON.stringify(blocks)] },
             contentType: 'application/json', 
+            
             
             
     
         });
+
+
+
+
+
+        
     };
 
     // Thread representation tab.
@@ -116,6 +140,7 @@ window.onload = function() {
     vm.on('playgroundData', function(data) {
         updateThreadExplorer(data.threads);
         updateBlockExplorer(data.blocks);
+           
     });
 
     // Receipt of new block XML for the selected target.
@@ -314,3 +339,5 @@ window.onload = function() {
             tabImportExport.style.display = 'block';
         });
 };
+
+    
