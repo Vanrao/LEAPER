@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4b5baa2b0674363a2fa525635debcbc2f96a9d39
 var loadProject = function () {
     var id = location.hash.substring(1);
     if (id.length < 1 || !isFinite(id)) {
@@ -78,6 +81,7 @@ window.onload = function() {
     var start = 0;
     var updateBlockExplorer = function(blocks) {
         blockexplorer.innerHTML = JSON.stringify(blocks, null, 2);
+<<<<<<< HEAD
         if(start==0)
         {
             blocksExp(blocks);
@@ -90,6 +94,9 @@ window.onload = function() {
         event.initEvent('build',true,true);
         blockexplorer.addEventListener('build',blocksExp(blocks));
         */
+=======
+        blocksExp(blocks);
+>>>>>>> 4b5baa2b0674363a2fa525635debcbc2f96a9d39
         window.hljs.highlightBlock(blockexplorer);
     };
 
@@ -107,6 +114,7 @@ window.onload = function() {
             
     
         });
+<<<<<<< HEAD
 
 
 
@@ -115,6 +123,10 @@ window.onload = function() {
         
     };
 
+=======
+    };
+
+>>>>>>> 4b5baa2b0674363a2fa525635debcbc2f96a9d39
     // Thread representation tab.
     var threadexplorer = document.getElementById('threadexplorer');
     var cachedThreadJSON = '';
@@ -140,7 +152,10 @@ window.onload = function() {
     vm.on('playgroundData', function(data) {
         updateThreadExplorer(data.threads);
         updateBlockExplorer(data.blocks);
+<<<<<<< HEAD
            
+=======
+>>>>>>> 4b5baa2b0674363a2fa525635debcbc2f96a9d39
     });
 
     // Receipt of new block XML for the selected target.
