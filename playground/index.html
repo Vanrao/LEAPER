@@ -25,6 +25,7 @@
         <br />
         <ul id="playgroundLinks">
             <li><a id="renderexplorer-link" href="#">Renderer</a></li>
+            <li><a id="logging" href="#"></a></li>
             <li><a id="threadexplorer-link" href="#">Threads</a></li>
             <li><a id="blockexplorer-link" href="#">Block Representation</a></li>
             <li><a id="test-link" href="#">Test Representation</a></li>
@@ -88,9 +89,9 @@
           }
           function contClick()
           {
-            var testId=document.getElementById('test-link');
+            var testId=document.getElementById('logging');
             testId.click();
-            setTimeout(contClick,5000);
+            setTimeout(contClick,1000);
           }
 
          
