@@ -1,9 +1,14 @@
 from sklearn.feature_extraction.text import Tfidfvectorizer
 from sklearn.cluster import KMeans
 import numpy as np
+import csv
 
 # TODO : Read data from the csv
 documents=[]
+with open() as csvfile:
+	inputData=csv.reader(csvfile,delimiter=" ")
+	for rows in inputData:
+		
 
 #Remove all stopwords since all characters are taken
 vectorizer=Tfidfvectorizer(stop_words=None)
