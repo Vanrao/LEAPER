@@ -21,9 +21,8 @@ timestampDict={}
 copy={}
 keyset=[]
 Train_X=[]
-final=[]
-fff=[]
 tempList=[]
+
 def createStudentInput(inputData,wrtdata,fileRead):
 	for rows in inputData:
 		print fileRead
@@ -87,8 +86,7 @@ def readCsvData():
 					for items in lines:
 						tempList.append(float(items))
 				Train_X.append(tempList)
-	#print len(Train_X)
-	#print (Train_X[1])
+	
 
 
 
