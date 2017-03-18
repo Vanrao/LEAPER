@@ -1,42 +1,55 @@
-from automaton import *
-"""
-class TrafficLight(Automaton):
+#Put this inside the automata-lib folder and run
+from automata.fa.dfa import DFA
 
-    go = Event("red", "green")
-    slowdown = Event("green", "yellow")
-    stop = Event("yellow", "red")
-crossroads = TrafficLight(initial_state="red")
-assert(crossroads.state == "red")
-crossroads.go()
-assert crossroads.state == "green"
-print(stategraph(TrafficLight, fmt='plantuml'))
-"""
+#level1
+#Label each opcode with A,B etc.
+dfa1 = DFA(
+    states={'q0', 'q1', 'q2','q3','q4','q5','q6','q7','q8'},
+    input_symbols={'A', 'B','C','D','E','F','G','H','I'},
+    transitions={
+        'q0': {'A': 'q0', 'B': 'q1','C':'q8','D':'q8','E':'q8','F':'q8','G':'q8','H':'q8','I':'q8'},
+        'q1': {'C': 'q2', 'A':'q8','B':'q8','D':'q8','E':'q8','G':'q8','H':'q8','I':'q8','F':'q8'},
+        'q2': {'D': 'q3' ,'C':'q8','A':'q8','E':'q8','F':'q8','G':'q8','H':'q8','I':'q8','B':'q8'},
+        'q3': {'E':'q4','C':'q8','D':'q8','A':'q8','F':'q8','G':'q8','H':'q8','I':'q8','B':'q8'},
+        'q4': {'D':'q3','F':'q5','C':'q8','B':'q8','E':'q8','A':'q8','G':'q8','H':'q8','I':'q8'},
+        'q5': {'G':'q6','C':'q8','D':'q8','E':'q8','F':'q8','A':'q8','H':'q8','I':'q8','B':'q8'},
+        'q6': {'H':'q7','C':'q8','D':'q8','E':'q8','F':'q8','G':'q8','A':'q8','I':'q8','B':'q8'},
+        'q7': {'I':'q7','C':'q8','D':'q8','E':'q8','F':'q8','G':'q8','H':'q8','A':'q8','B':'q8'},
+	'q8': {'I':'q8','C':'q8','D':'q8','E':'q8','F':'q8','G':'q8','H':'q8','A':'q8','B':'q8'}
+    },
+    initial_state='q0',
+    final_states={'q7','q8'}
+)
+stopped_state1 = dfa1.validate_input('ABCDEFGHI')
+if(stopped_state1 != 'q8'):
+	print("DFA accepted!")
+else:
+	print("DFA Rejected!")
 
-#define the dfa
-class Level1(Automaton):
-	start1 = Event("flagClicked", "gotoXY")
-	start2 = Event("gotoXY", "show")
-	start3 = Event("show", "pointInDirection")
-	start4 = Event("pointInDirection", "move")
+#level2
+dfa2 = DFA(
+    states={'q0', 'q1', 'q2','q3','q4','q5'},
+    input_symbols={'a','b','c','d','0', '1'},
+    transitions={
+        'q0': {'a': 'q0', 'b': 'q1','c':'q5','d':'q5','0':'q5','1':'q5'},
+        'q1': {'c': 'q2','a':'q5','b':'q5','0':'q5','1':'q5','d':'q5' },
+        'q2': {'d': 'q3', 'c':'q5','a':'q5','0':'q5','1':'q5','b':'q5'},
+	'q3': {'1':'q4','0':'q5','a':'q5','b':'q5','c':'q5','d':'q5'},
+	'q4': {'1':'q4','0':'q5','a':'q5','b':'q5','c':'q5','d':'q5'},
+	'q5': {'1':'q5','0':'q5','a':'q5','b':'q5','c':'q5','d':'q5'}
+    },
+    initial_state='q0',
+    final_states={'q4','q5'}
+)
+#gives the state at which the dfa stops. With this calculate the distance metric
+stopped_state2 = dfa2.validate_input('abcd0') #rejected, with abcd1 gets accepted
+if(stopped_state2 != 'q5'):
+	print("DFA accepted!")
+else:
+	print("DFA Rejected!")
 
-#pass a list of input block opcodes as strings	
-inputList=["flagClicked", "gotoXY", "show", "pointInDirection", "move"]
 
-#set the initial state to any input
-dist = 0
-start = Level1(initial_state = "flagClicked")
-s1 = start.start1
-s2 = start.start2
-s3 = start.start3
-s4 = start.start4
-opsList = [s1,s2,s3,s4]
-for i,j in zip(range(1,len(inputList)),opsList):
-	j()
-	if(start.state == inputList[i]):
-		dist+= 1
-		print("Accepting...")
-	else :
-		print("Rejected")
-		print(start.state+" and "+inputList[i]+" are not same")
-print("Distance travelled to reach the final solution is "+str(dist))
+
+
+
 
