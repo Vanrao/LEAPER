@@ -1,6 +1,17 @@
 #Put this inside the automata-lib folder and run
 from automata.fa.dfa import DFA
 
+"""
+A : whenGreenFlagClicked
+B : goToXY
+C : show
+D : point in direction
+E : move steps 
+F : forever
+G : if
+H : touching step
+I : switch backdrop to level2
+"""
 #level1
 #Label each opcode with A,B etc.
 dfa1 = DFA(
@@ -26,6 +37,15 @@ if(stopped_state1 != 'q8'):
 else:
 	print("DFA Rejected!")
 
+	
+"""
+a - when backdrop switches to level2
+b - show
+c - goto xy
+d - forever
+1 - [up,down,left,right,stop]
+0 - [if any of the above repeat]
+"""
 #level2
 dfa2 = DFA(
     states={'q0', 'q1', 'q2','q3','q4','q5'},
