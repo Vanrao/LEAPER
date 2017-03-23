@@ -6,9 +6,12 @@ fileName = ''
 fName = open(fileName,'r')
 
 control_blocks = ['forever', 'if-then', 'if-then-else', 'repeat', 'repeat-until']
+init_tree = Node('root')
 for opcode in fName:
 	if opcode in control_blocks:
-		Node(prevNode).addkid(currentNode)
+		currentNode = opcode
+		init_tree.addkid(Node(currentNode))
+		prevNode = currentNode
 A = (
     Node("f")
         .addkid(Node("a")
