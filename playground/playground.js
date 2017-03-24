@@ -367,10 +367,9 @@ window.onload = function() {
 var loadProject = function () {
     var id = location.hash.substring(1);
     if (id.length < 1 || !isFinite(id)) {
-        id = '146242971';
+        id = '146242971'; // not required for offline workshop
     }
-    var url = 'https://projects.scratch.mit.edu/internalapi/project/' +
-        id + '/get/';
+    var url = "project.txt"; // project.txt has the json form of the problem statement
     var r = new XMLHttpRequest();
     r.onreadystatechange = function() {
         if (this.readyState === 4) {
