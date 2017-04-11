@@ -137,7 +137,7 @@ def create(f1,f2,f3):
 				val = List[3];
 				val = eval(val);
 				value = val ["NUM"]["value"];
-				newStr = newStr + "(" + str(value) + ")";
+				newStr = newStr + "(" + str(value) + ") ";
 				motion_gotoxy = motion_gotoxy + 1;
 
 			if("math_angle" in List):
