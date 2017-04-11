@@ -223,8 +223,8 @@ def create(f1,f2,f3):
 							motion_goto = 0
 				
 	for key,value in content.items():
-		global count
-		global newStr
+		global count;
+		global newStr;
 		if(count == 0):
 			startTime = key;
 			count = 1;
@@ -236,7 +236,7 @@ def create(f1,f2,f3):
 			for k,v in orderedLines.items():
 				for val in v:
 					for val1 in val:
-					
+						
 						checkBlocks(val1);
 
 					newStr = newStr + "end\n\n";
@@ -246,6 +246,8 @@ def create(f1,f2,f3):
 			def treeIF(index1,opcode):
 				noOfBraces = 0;
 				for index in range(index1,len(opcode)):
+					opcode[index] = opcode[index].replace(")","");
+					opcode[index] = opcode[index].replace("(","");
 					if(opcode[index] == ''):
 						pass;
 					elif(opcode[index] == "end"):
@@ -257,7 +259,15 @@ def create(f1,f2,f3):
 						file_obj2.write(opcode[index]);
 						noOfBraces = noOfBraces + 1;
 
+			Level_1 = 'when backdrop switches to [level2]\nhide\ngo to (-195) (143) \n';
+			Level_2 = 'when backdrop switches to [level1]\nhide\n'
+			#Level_3 = "when backdrop switches to [level3]";
 			treeOpcodes = newStr.split("end\n\n");
+			print(treeOpcodes);
+			if(Level_1 in treeOpcodes):
+				file_obj2.write("Level 1\n");
+			elif(Level_2 in treeOpcodes):
+				file_obj2.write("Level2\n");
 			#file_obj2.write("Level 1\n");
 			file_obj2.write(key);
 			file_obj2.write("{root");
@@ -266,6 +276,8 @@ def create(f1,f2,f3):
 				noOfBraces = 0;
 				index = 0;
 				while(index < len(opcode)):
+					opcode[index] = opcode[index].replace(")","");
+					opcode[index] = opcode[index].replace("(","");
 					if(opcode[index] == ''):
 						index = index + 1;
 						pass;
@@ -284,10 +296,10 @@ def create(f1,f2,f3):
 
 
 			newStr = "";
-		
+			
 		else:
 			file_obj1.write(key);
-			file_obj2.write(key);
+			
 			percentageTime = str((int(key)-int(startTime)) / 1000 ) + "th Second\n";
 			file_obj1.write(percentageTime);
 			lines = json.loads(value);
@@ -305,6 +317,8 @@ def create(f1,f2,f3):
 			def treeIF(index1,opcode):
 				noOfBraces = 0;
 				for index in range(index1,len(opcode)):
+					opcode[index] = opcode[index].replace(")","");
+					opcode[index] = opcode[index].replace("(","");
 					if(opcode[index] == ''):
 						pass;
 					elif(opcode[index] == "end"):
@@ -316,24 +330,23 @@ def create(f1,f2,f3):
 						file_obj2.write(opcode[index]);
 						noOfBraces = noOfBraces + 1;
 
-			Level_1 = "when backdrop switches to [level2]\nhide\ngo to (-195)(143)\n";
-			Level_2 = "when backdrop switches to [level1]\nhide\nend"
-			Level_3 = "when backdrop switches to [level3]";
+			Level_1 = 'when backdrop switches to [level2]\nhide\ngo to (-195) (143) \n';
+			Level_2 = 'when backdrop switches to [level1]\nhide\n'
+			#Level_3 = "when backdrop switches to [level3]";
 			treeOpcodes = newStr.split("end\n\n");
-			'''
-			if(Level_2 in treeOpcodes):
-				file_obj2.write("Level 2\n");
-				file_obj2.write(key);
-			elif(Level_3 in treeOpcodes):
-				file_obj2.write("Level 3\n");
-				file_obj2.write(key);
-			'''
+			if(Level_1 in treeOpcodes):
+				file_obj2.write("Level 1\n");
+			elif(Level_2 in treeOpcodes):
+				file_obj2.write("Level2\n");
+			file_obj2.write(key);
 			file_obj2.write("{root");
 			for opcodes in treeOpcodes:
 				opcode = opcodes.strip().split("\n");
 				noOfBraces = 0;
 				index = 0;
 				while(index < len(opcode)):
+					opcode[index] = opcode[index].replace(")","");
+					opcode[index] = opcode[index].replace("(","");
 					if(opcode[index] == ''):
 						index = index + 1;
 						pass;
