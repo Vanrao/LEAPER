@@ -8,8 +8,9 @@ treeList = []
 solutionsListForLevel1 = []
 solutionsListForLevel2 = []
 
-def createCsvs(studentCsv, studentInputFile):
-	studentScores = studentCsv
+def createCsvs(studentCsv1, studentCsv2, studentInputFile):
+	studentScores = studentCsv1
+	studLevel2 = studentCsv2
 	#tree format input text file of student block data
 	fileName = studentInputFile
 	tempFile = '/home/vanrao/scratch-vm/LEAPER-master/WorkingLeaper/temp.txt'
@@ -26,9 +27,15 @@ def createCsvs(studentCsv, studentInputFile):
 
 	#for solution 1
 	ff = open(studentScores, 'w')
+	level2file = open(studLevel2, 'w')
 	def csvwrite(levelNum, timestamp, score):
 		csvwriter = csv.writer(ff, delimiter=',')
-		csvwriter.writerow([levelNum, timestamp,str(score)])
+		csvwriter.writerow([levelNum, timestamp, score[0], score[1], score[2], score[3], score[4], score[5]])
+		#csvwriter.writerow([levelNum, timestamp,str(score)])
+	def csvwrite2(levelNum, timestamp, score):
+		csvwriter = csv.writer(level2file, delimiter=',')
+		csvwriter.writerow([levelNum, timestamp,  score[0]])
+		#csvwriter.writerow([levelNum, timestamp,str(score)])
 
 
 	def isInt(s):
@@ -44,7 +51,7 @@ def createCsvs(studentCsv, studentInputFile):
 		for eachSoln in listOfCorrectSolns:
 			score = os.popen("java -jar RTED_v1.1.jar -f"+" "+studentSoln+" "+eachSoln+" "+"-s left", "r")
 			#print score.read()
-			scoresOrder.append(score.read())
+			scoresOrder.append(score.read().rstrip())
 		return scoresOrder
 
 	with open(fileName,'r') as f:
@@ -80,7 +87,7 @@ def createCsvs(studentCsv, studentInputFile):
 			elif(levelNum == 'Level2'):
 				treeScores = calcScore(tempFile,solutionsListForLevel2)
 				#print timestamp+":"+str(treeScore)
-				csvwrite(levelNum, timestamp, treeScores)
+				csvwrite2(levelNum, timestamp, treeScores)
 				open(tempFile, 'w').close()
 				#print "\n"
 			
