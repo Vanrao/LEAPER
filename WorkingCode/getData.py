@@ -32,6 +32,7 @@ def create(f1,f2,f3):
 
 
 
+	
 
 	def orderBlocks(value,key):
 		indexList = [];
@@ -82,10 +83,10 @@ def create(f1,f2,f3):
 
 		for List in value:
 			if(List[1] == "control_if"):
-				
+			
 				for i in opcodesList[key]:
 					addIf(List,i,None);
-				
+			
 		for List in value:
 			if("control_if" in List):
 				value.remove(List);		
@@ -93,7 +94,7 @@ def create(f1,f2,f3):
 
 		def reOrderBlocks(parentOpcode,i,List):
 			for index in range(0,len(i)):
-				
+			
 				if(index == 0 and i[index] == parentOpcode):
 					i.append(List);
 					return;
@@ -104,7 +105,7 @@ def create(f1,f2,f3):
 			parentOpcode = List[5];
 			for i in opcodesList[key]:
 				reOrderBlocks(parentOpcode,i,List);
-		
+	
 		return opcodesList;
 			
 	def checkBlocks(List):
@@ -116,7 +117,7 @@ def create(f1,f2,f3):
 				#print("when green flag clicked");
 				#file_obj1.write("when green flag clicked\n");
 				newStr = newStr + "when green flag clicked\n";
-					
+				
 			if("looks_show"in List):
 				#print("show");
 				#file_obj1.write("show\n");
@@ -221,10 +222,12 @@ def create(f1,f2,f3):
 						if(motion_goto == 0 and motion_gotoxy > 0):
 							motion_gotoxy = 0
 							motion_goto = 0
-					
+				
 	for key,value in content.items():
-		global count;
-		global newStr;
+		global count
+		global newStr
+		global prevStr
+		global startTime
 		if(count == 0):
 			startTime = key;
 			count = 1;
@@ -233,11 +236,10 @@ def create(f1,f2,f3):
 			file_obj1.write(percentageTime);
 			lines = json.loads(value);
 			orderedLines = orderBlocks(lines,key);
-			print(orderedLines);
 			for k,v in orderedLines.items():
 				for val in v:
 					for val1 in val:
-						
+					
 						checkBlocks(val1);
 
 					newStr = newStr + "end\n\n";
@@ -299,10 +301,10 @@ def create(f1,f2,f3):
 
 
 			newStr = "";
-			
+		
 		else:
 			file_obj1.write(key);
-			
+		
 			percentageTime = str((int(key)-int(startTime)) / 1000 ) + "th Second\n";
 			file_obj1.write(percentageTime);
 			lines = json.loads(value);
@@ -339,7 +341,7 @@ def create(f1,f2,f3):
 			Level_1 = 'when backdrop switches to [level2]\nhide\ngo to (-195) (143) \n';
 			Level_2 = 'when backdrop switches to [level1]\nhide\n'
 			#Level_3 = "when backdrop switches to [level3]";
-			
+		
 			treeOpcodes = newStr.split("end\n\n");
 			if(Level_1 in treeOpcodes):
 				file_obj2.write("Level 1\n");
