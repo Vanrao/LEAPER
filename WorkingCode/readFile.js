@@ -1,5 +1,6 @@
 var fs=require('fs');
-fs.readFile('/home/vanrao/scratch-vm/LEAPER-master/WorkingLeaper/DPSNorthWorkshop/Tanay.txt','utf8', function(err, contents) {
+
+fs.readFile(process.argv[2],'utf8', function(err, contents) {
     if (err)
     {
       return console.error(err);
@@ -57,7 +58,7 @@ fs.readFile('/home/vanrao/scratch-vm/LEAPER-master/WorkingLeaper/DPSNorthWorksho
         
       }
       
-      fs.appendFile("/home/vanrao/scratch-vm/LEAPER-master/WorkingLeaper/DPSWorshopDataOpcodesFiles/Tanay.txt",time + JSON.stringify(opcodesList) + "\n");
+      fs.appendFile(process.argv[3],time + JSON.stringify(opcodesList) + "\n");
       }
       catch(err)
       {
@@ -65,3 +66,5 @@ fs.readFile('/home/vanrao/scratch-vm/LEAPER-master/WorkingLeaper/DPSNorthWorksho
       }
     }
 });
+
+

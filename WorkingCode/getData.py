@@ -5,14 +5,13 @@ import re
 import ast
 import time
 from collections import OrderedDict
-
-
 prevStr = "";
 newStr = "";
 start = 0;
 count = 0;
 motion_goto = 0;
 motion_gotoxy = 0;
+
 def create(f1,f2,f3):
 	file_obj = open(f1,"r");
 	file_obj1 = open(f2,"w");
@@ -105,7 +104,7 @@ def create(f1,f2,f3):
 			parentOpcode = List[5];
 			for i in opcodesList[key]:
 				reOrderBlocks(parentOpcode,i,List);
-	
+
 		return opcodesList;
 			
 	def checkBlocks(List):
@@ -207,7 +206,13 @@ def create(f1,f2,f3):
 					elif("sensing_touchingcolor" in List):
 						newStr = newStr + "touching [";
 					elif("sound_play" in List):
-						newStr = newStr + "play sound ["	
+						newStr = newStr + "play sound [";
+					elif("motion_turnleft" in List):
+						newStr = newStr + "turn left ";	
+					elif("motion_turnright" in List):
+						newStr = newStr + "turn right ";
+					elif("motion_changexby" in List):
+						newStr = newStr + "move X ";
 				elif(isinstance(List[index],list)):
 					checkBlocks(List[index]);
 					if (index == len(List)-1 and List[1] == "control_if"):
@@ -226,7 +231,6 @@ def create(f1,f2,f3):
 	for key,value in content.items():
 		global count
 		global newStr
-		global prevStr
 		global startTime
 		if(count == 0):
 			startTime = key;
@@ -245,12 +249,15 @@ def create(f1,f2,f3):
 					newStr = newStr + "end\n\n";
 			file_obj1.write(newStr);
 			prevStr = newStr;
-
+			print(key);
+			if(key == '1491453510213'):
+				print(orderedLines);
 			def treeIF(index1,opcode):
 				noOfBraces = 0;
 				for index in range(index1,len(opcode)):
 					opcode[index] = opcode[index].replace(")","");
 					opcode[index] = opcode[index].replace("(","");
+					opcode[index] = opcode[index].replace(" ","");
 					if(opcode[index] == ''):
 						pass;
 					elif(opcode[index] == "end"):
@@ -283,6 +290,7 @@ def create(f1,f2,f3):
 				while(index < len(opcode)):
 					opcode[index] = opcode[index].replace(")","");
 					opcode[index] = opcode[index].replace("(","");
+					opcode[index] = opcode[index].replace(" ","");
 					if(opcode[index] == ''):
 						index = index + 1;
 						pass;
@@ -317,6 +325,15 @@ def create(f1,f2,f3):
 			if(newStr != prevStr):
 				file_obj1.write(newStr);
 				prevStr = newStr;
+				#print(key);
+			if(key == '1491453510213\n'):
+				for k,v in orderedLines.items():
+					print("=================================");
+				for val in v:
+					for val1 in val:
+						print(val1);
+				print("======================================");
+			newStr = newStr + "end\n\n";
 
 			#To print into treeOutput.txt
 			def treeIF(index1,opcode):
@@ -324,6 +341,7 @@ def create(f1,f2,f3):
 				for index in range(index1,len(opcode)):
 					opcode[index] = opcode[index].replace(")","");
 					opcode[index] = opcode[index].replace("(","");
+					opcode[index] = opcode[index].replace(" ","");
 					if(opcode[index] == ''):
 						pass;
 					elif(opcode[index] == "end"):
@@ -356,6 +374,7 @@ def create(f1,f2,f3):
 				while(index < len(opcode)):
 					opcode[index] = opcode[index].replace(")","");
 					opcode[index] = opcode[index].replace("(","");
+					opcode[index] = opcode[index].replace(" ","");
 					if(opcode[index] == ''):
 						index = index + 1;
 						pass;
