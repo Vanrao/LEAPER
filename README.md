@@ -27,3 +27,4 @@ Integrate the CSVs(results of TreeScoresForAll.py) into UI dashboards for each s
 ALL WORKING CODES ARE IN THE WorkingCode directory
 
 ------------------------------------------------------------------------------------------------
+AdminLTE directory contains the files related to the UI. CSS template has been used for this.
